@@ -12,23 +12,39 @@ function compile(str, path){
         realArgs = '',
         formalArgs = '';
 
-    var context = homunculus.getContext('js').parse('function anima(){' + data.formatTpl + '}').getChildren()[0],
-        vars = context.getVars(),
-        vids = context.getVids();
+    function getContextVars(context) {
+        var vars = context.getVars().map(function(vd) {
+            return vd.first().token().content();
+        });
+        var vids = context.getVids().map(function(vd) {
+            return vd.token().content();
+        });
+        var params = context.getParams();
 
-    vars.forEach(function (vardecl) {
-        var v = vardecl.first().token().content();
-        hash[v] = true;
-    });
+        vars.forEach(function (v) {
+            if (params.indexOf(v) > -1) {
+                hash[v] = true;
+            }
+        });
+        vids.forEach(function (v) {
+            if (params.indexOf(v) > -1 || hash[v]) {
+                return;
+            }
+            hash[v] = true;
+            args.push(v);
+        });
 
-    vids.forEach(function (vid) {
-        var v = vid.token().content();
-        if (hash[v]) {
-            return;
-        }
-        hash[v] = true;
-        args.push(v);
-    });
+        var children = context.getChildren();
+        children.forEach(function(c) {
+            getContextVars(c);
+        });
+    }
+
+    var context = homunculus.getContext('js')
+        .parse('function anima(){' + data.formatTpl + '}')
+        .getChildren()[0];
+
+    getContextVars(context);
 
     try {
         new Function(args, data.formatTpl);
