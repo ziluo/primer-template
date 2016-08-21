@@ -1,6 +1,6 @@
 {
   "name": "primer-template",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "primer template",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/ziluo/primer-template",
   "dependencies": {
+    "acorn": "^3.3.0",
     "homunculus": "~0.10.4",
     "js-beautify": "~1.6.2",
     "touch": "^1.0.0"
