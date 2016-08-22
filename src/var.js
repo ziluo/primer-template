@@ -46,7 +46,7 @@ Var.prototype.getRst = function getRst(asts) {
     asts.push(firstArgument);
   }
 
-  return '(typeof ' + firstArgument + ' !== undefined && ' + asts.join(' && ') + ') || ' + this.defaultValue;
+  return '(typeof ' + firstArgument + ' !== "undefined" && ' + firstArgument + ' && ' + asts.join(' && ') + ') || ' + this.defaultValue.toString();
 };
 
 Var.prototype.getTree = function (tree, str) {
