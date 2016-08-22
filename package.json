@@ -1,6 +1,6 @@
 {
   "name": "primer-template",
-  "version": "1.2.0",
+  "version": "1.2.0-beta",
   "description": "primer template",
   "main": "index.js",
   "scripts": {
