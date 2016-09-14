@@ -32,7 +32,9 @@ var format = function (str, filePath) {
 
                         if (fs.statSync(targetPath).isFile()) {
 
-                            watch(targetPath, entry);
+                            if (process.env.atpl === 'watch') {
+                                watch(targetPath, entry);
+                            }
 
                             var openedFile = fs.readFileSync(targetPath, 'utf-8');
 
