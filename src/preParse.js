@@ -32,7 +32,7 @@ var format = function (str, filePath) {
 
                         if (fs.statSync(targetPath).isFile()) {
 
-                            if (process && process.env.atpl === 'watch') {
+                            if (process.env.atpl === 'watch') {
                                 watch(targetPath, entry);
                             }
 
